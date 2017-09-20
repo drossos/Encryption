@@ -2,30 +2,24 @@ package com.rossos.cryptography;
 
 import java.util.Scanner;
 
-public class PolybiusSquare {
-	static String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+public class PolybiusSquare extends Cipher {
+	//TODO consider adding a way to shif the alphabet to 
+	//make is possible to shift the p.square
+	static String ALPHABET = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
 	static String[][] PSQUARE = new String[5][5];
-	public PolybiusSquare (int option) {
-		Scanner keyboard = new Scanner(System.in);
-		if (option == 1){
-		String decoded = "";
-		System.out.println("Enter Encoded Message: ");
-		String encoded = keyboard.nextLine().toUpperCase();
-		//poly squares only 5 by 5 
-		//String [][] pSquare = new String [getHighest(1,encoded)][getHighest(0,encoded)];
+	
+	public PolybiusSquare (int encOrDec, String phrase) {
+		super(encOrDec,phrase);
 		fillAlpha(PSQUARE);
-		decoded = decode(PSQUARE,encoded,decoded);
+		
+		if (encOrDec == Driver.DECODE){
+		super.setDecoded(decode(super.getEncoded(),super.getDecoded()));
 		System.out.println("Decoded Message: ");
-		System.out.println(decoded);
+		System.out.println(super.getDecoded());
 		}
 		
-		if (option == 2){
-			System.out.println("Enter Decoded Message: ");
-			String decoded = keyboard.nextLine().toUpperCase();
-			fillAlpha(PSQUARE);
-			String encoded = endcode(decoded);
-			System.out.println("Encoded Message is: ");
-			System.out.println(encoded);
+		if (encOrDec == Driver.ENCODE){
+			super.setEncoded(endcode(super.getDecoded()));
 		}
 	}
 
@@ -43,9 +37,9 @@ public class PolybiusSquare {
 		
 	}
 
-	private String decode(String[][] pSquare, String encoded, String decoded) {
+	private String decode(String encoded, String decoded) {
 		for (int i = 0; i < encoded.length()-1; i+=2){
-			decoded += pSquare[Integer.parseInt(encoded.substring(i+1, i+2))-1][Integer.parseInt(encoded.substring(i,i+1))-1];
+			decoded += ""+PSQUARE[Integer.parseInt(encoded.substring(i+1, i+2))-1][Integer.parseInt(encoded.substring(i,i+1))-1];
 		}
 		return decoded;
 		
@@ -57,8 +51,6 @@ public class PolybiusSquare {
 			for (int k = 0; k < pSquare[0].length; k++){
 				pSquare[i][k] = ALPHABET.substring(counter, counter+1);
 				counter++;
-				if(ALPHABET.charAt(counter) == 'j')
-					i++;
 			}
 		}
 		

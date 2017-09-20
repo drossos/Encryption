@@ -14,10 +14,14 @@ public abstract class Cipher {
 	// All ciphers have these 3 variables in-common
 	public Cipher (int encOrDec, String phrase) {
 		this.encOrDec = encOrDec;
-		if (encOrDec == Driver.DECODE) 
+		if (encOrDec == Driver.DECODE) {
 			encoded = phrase;
-		else
+			decoded = "";
+		}
+		else {
 			decoded = phrase;
+			encoded = "";
+		}
 	}
 	
 	public String getDecoded() {

@@ -3,6 +3,11 @@ package com.rossos.cryptography;
 import java.util.Scanner;
 
 public class ROT13 {
+	
+	/*
+	 * This class is currently irrelevant with current version
+	 * ROT13 is only modification of caesar so not needed for own class
+	 */
 
 	public ROT13(int choice) {
 		
