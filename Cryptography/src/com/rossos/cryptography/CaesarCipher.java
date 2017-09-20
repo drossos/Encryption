@@ -1,74 +1,59 @@
 package com.rossos.cryptography;
 
-import java.util.Scanner;
+public class CaesarCipher extends Cipher {
+	private int shift;
 
-public class CaesarCipher {
-	
-	public CaesarCipher (int choice){
-		Scanner keyboard  = new Scanner(System.in);
-		
-		if (choice == Driver.ENCODE){
-			System.out.println("Enter in decoded message: ");
-			String decoded = keyboard.nextLine().trim().toUpperCase();
-			System.out.println("Enter in the shift");
-			int shift  = Integer.parseInt(keyboard.nextLine().trim());
-			String encoded = "";
-			
-			encoded = applyShift(decoded, encoded, shift);
-			
-			System.out.println("This is the encoded message: ");
-			System.out.println(encoded);
-			
+	public CaesarCipher(int encOrDec, String phrase, int caesarShift) {
+		super(encOrDec, phrase);
+		this.shift = caesarShift;
+		if (encOrDec == Driver.DECODE) {
+			super.setDecoded(reduceShift(super.getEncoded(), this.getDecoded(), shift));
+		} else {
+			super.setEncoded(applyShift(super.getEncoded(), this.getDecoded(), shift));
 		}
-		
-		if (choice == Driver.DECODE){
-			System.out.println("Enter encoded message:");
-			String encoded = keyboard.nextLine().trim().toUpperCase();
-			System.out.println("Enter a shift you want to check ");
-			int shift = Integer.parseInt( keyboard.nextLine().trim().toUpperCase());
-			String decoded= "";
-			boolean decoding = true;
-			
-		
-				//never leaves
-				decoded = reduceShift(decoded, encoded, shift);
-				
-				
-				
-			
-			System.out.println("The decoded message with a shift of "+ shift+ " is: ");
-			System.out.println(decoded);
-			
-		}
-	
-}
 
-public String applyShift (String encoded, String decoded, int shift){
-	for (int i  = 0; i < decoded.length(); i++){
-		char currentChar = decoded.charAt(i);
-		for (int k  = 0; k < shift; k++){
-			 currentChar = (char) (currentChar+1);
-			 if (currentChar == 91)
-				 currentChar = 	(char)65;
-		}
-		encoded += "" + currentChar;
 	}
-	return encoded;
-	
-}
 
-public String reduceShift (String encoded, String decoded, int shift){
-	for (int i  = 0; i < decoded.length(); i++){
-		char currentChar = decoded.charAt(i);
-		for (int k  = 0; k < shift; k++){
-			 currentChar = (char) (currentChar-1);
-			 if (currentChar == 64)
-				 currentChar = 	(char)90;
+	public String applyShift(String encoded, String decoded, int shift) {
+		//must assign a value to the string to be empty that way does 
+		//not add on to "null"
+		encoded = "";
+		for (int i = 0; i < decoded.length(); i++) {
+			char currentChar = decoded.charAt(i);
+			for (int k = 0; k < shift; k++) {
+				currentChar = (char) (currentChar + 1);
+				if (currentChar == 91)
+					currentChar = (char) 65;
+			}
+			encoded += "" + currentChar;
 		}
-		encoded += "" + currentChar;
+		super.setEncoded(encoded);
+		return encoded;
+
 	}
-	return encoded;
-	
-}
+
+	public String reduceShift(String encoded, String decoded, int shift) {
+		decoded = "";
+		for (int i = 0; i < encoded.length(); i++) {
+			char currentChar = encoded.charAt(i);
+			for (int k = 0; k < shift; k++) {
+				currentChar = (char) (currentChar - 1);
+				if (currentChar == 64)
+					currentChar = (char) 90;
+			}
+			decoded += "" + currentChar;
+		}
+		super.setDecoded(decoded);
+		return decoded;
+
+	}
+
+	public int getShift() {
+		return shift;
+	}
+
+	public void setShift(int shift) {
+		this.shift = shift;
+	}
 
 }
