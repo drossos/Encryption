@@ -2,23 +2,35 @@ package com.rossos.cryptography;
 
 import java.util.Scanner;
 
+/**
+ * @author Daniel Rossos
+ *
+ */
 public class PolybiusSquare extends Cipher {
 	//TODO consider adding a way to shif the alphabet to 
 	//make is possible to shift the p.square
 	static String ALPHABET = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
 	static String[][] PSQUARE = new String[5][5];
 	
+	/**
+	 * @param encOrDec int deciding to encode (0) or decode (1)
+	 * @param phrase String for encoding or decoding
+	 * @return instance of PolybiusSquare that has 
+	 * been encoded and decoded against a standard 
+	 * 5x5 alphabet grid. J's and I's have same 
+	 * encoded value and encoded J's will decode to I's
+	 */
 	public PolybiusSquare (int encOrDec, String phrase) {
 		super(encOrDec,phrase);
 		fillAlpha(PSQUARE);
 		
-		if (encOrDec == Driver.DECODE){
+		if (encOrDec == Cipher.DECODE){
 		super.setDecoded(decode(super.getEncoded(),super.getDecoded()));
 		System.out.println("Decoded Message: ");
 		System.out.println(super.getDecoded());
 		}
 		
-		if (encOrDec == Driver.ENCODE){
+		if (encOrDec == Cipher.ENCODE){
 			super.setEncoded(endcode(super.getDecoded()));
 		}
 	}
@@ -32,6 +44,8 @@ public class PolybiusSquare extends Cipher {
 						encoded += "" + (k+1) + (j+1);
 				}
 			}
+			if (decoded.substring(i,i+1).equals("J"))
+				encoded += "" + 4 + 2;
 		}
 		return encoded;
 		

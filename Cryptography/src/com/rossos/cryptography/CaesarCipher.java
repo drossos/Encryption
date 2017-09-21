@@ -1,12 +1,22 @@
 package com.rossos.cryptography;
 
+/**
+ * @author Daniel Rossos
+ *
+ */
 public class CaesarCipher extends Cipher {
 	private int shift;
 
+	/**
+	 * @param encOrDec int deciding to encode (0) or decode (1)
+	 * @param phrase String for encoding or decoding
+	 * @param caesarShift int used to decide how much to shift the phrase in encoding or decoding
+	 * @return returns an instance of CaesarCipher
+	 */
 	public CaesarCipher(int encOrDec, String phrase, int caesarShift) {
 		super(encOrDec, phrase);
 		this.shift = caesarShift;
-		if (encOrDec == Driver.DECODE) {
+		if (encOrDec == Cipher.DECODE) {
 			super.setDecoded(reduceShift(super.getEncoded(), this.getDecoded(), shift));
 		} else {
 			super.setEncoded(applyShift(super.getEncoded(), this.getDecoded(), shift));

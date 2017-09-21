@@ -1,13 +1,19 @@
 package com.rossos.cryptography;
-
 import java.util.Scanner;
 
-public class Vernam {
+/**
+ * @author Daniel Rossos
+ *
+ */
+public abstract class Vernam {
 	private int NUMBER_OF_BITS  = 7;
 	//TODO something wrong with comparing each bit by bit to create product
+	/**
+	 * Does not currently work and is abstract until fixed and working
+	 */
 	public Vernam(int choice){
 		Scanner keyboard  = new Scanner(System.in);
-		if (choice == Driver.ENCODE){
+		if (choice == Cipher.ENCODE){
 			System.out.println("Enter decoded message: ");
 			String decoded = keyboard.nextLine().trim().toUpperCase();
 			System.out.println("Enter in the key of equal length");
@@ -40,7 +46,7 @@ public class Vernam {
 			
 			 
 		}
-		if (choice == Driver.DECODE){
+		if (choice == Cipher.DECODE){
 			System.out.println("Enter in encoded message. Make sure it is only 1s and 0s and have a space seperating each character.");
 			String encoded = keyboard.nextLine().trim();
 			System.out.println("Enter in the key");

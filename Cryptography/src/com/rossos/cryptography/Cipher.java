@@ -1,5 +1,9 @@
 package com.rossos.cryptography;
 
+/**
+ * @author Daniel Rossos
+ *
+ */
 public abstract class Cipher {
 	/*
 	 * Daniel Rossos 9/19/2017
@@ -11,10 +15,16 @@ public abstract class Cipher {
 	private String decoded;
 	private String encoded;
 	private int encOrDec;
+	public static final int DECODE = 1;
+	public static final int ENCODE = 0;
 	// All ciphers have these 3 variables in-common
+	/**
+	 * @param encOrDec int deciding to encode (0) or decode (1)
+	 * @param phrase String for encoding or decoding
+	 */
 	public Cipher (int encOrDec, String phrase) {
 		this.encOrDec = encOrDec;
-		if (encOrDec == Driver.DECODE) {
+		if (encOrDec == DECODE) {
 			encoded = phrase;
 			decoded = "";
 		}

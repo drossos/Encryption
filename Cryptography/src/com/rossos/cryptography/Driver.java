@@ -1,12 +1,13 @@
 package com.rossos.cryptography;
-
 import java.util.Scanner;
 
-public class Driver {
-	// TODO ONLY CAESAR HAS BEEN UPDATED TO NEWER DESIGN OF CLASSES AND SUBCLASSES
+/**
+ * @author Daniel Rossos
+ *
+ */
+public abstract class Driver {
+	// TODO fix vernam
 	public final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	public static final int DECODE = 1;
-	public static final int ENCODE = 0;
 	public static Scanner keyboard = new Scanner(System.in);
 
 	public static void main(String[] args) {
@@ -18,9 +19,9 @@ public class Driver {
 			System.out.println("Encode or Decode Message?");
 			String decodeOrEncode = keyboard.nextLine().trim().toUpperCase();
 			if (decodeOrEncode.equals("DECODE"))
-				encOrDec = DECODE;
+				encOrDec = Cipher.DECODE;
 			else if (decodeOrEncode.equals("ENCODE"))
-				encOrDec = ENCODE;
+				encOrDec = Cipher.ENCODE;
 
 			System.out.println("What type of cipher?");
 			System.out.println("1. Polybius Square\n2. CaesarCipher\n3. Vernam\n4. ROT 13\n5. Vigenere");
@@ -36,7 +37,7 @@ public class Driver {
 				System.out.println("Encoded: " + test.getDecoded());
 				System.out.println("Decoded: " + test.getEncoded());
 			} else if (answer.equals("3") || answer.equals("Vernam (UNDER CONSTRUCTION)"))
-				new Vernam(encOrDec);
+				System.out.println("Unavalible for now");
 			else if (answer.equals("4") || answer.equals("ROT 13")) {
 				test = new CaesarCipher(encOrDec, getPhrase(encOrDec), 13);
 				System.out.println("Encoded: " + test.getDecoded());
@@ -61,7 +62,7 @@ public class Driver {
 	}
 
 	private static String getPhrase(int encOrDec) {
-		if (encOrDec == ENCODE) {
+		if (encOrDec == Cipher.ENCODE) {
 			System.out.println("Enter in decoded message: ");
 			return keyboard.nextLine().trim().toUpperCase();
 		} else {
