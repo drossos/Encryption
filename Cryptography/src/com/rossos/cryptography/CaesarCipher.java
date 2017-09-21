@@ -29,7 +29,7 @@ public class CaesarCipher extends Cipher {
 	 * @param shift int shift that will be used to encode plaintext
 	 * @return Returns a String that he been encoded
 	 */
-	public String applyShift(String decoded, int shift) {
+	private String applyShift(String decoded, int shift) {
 		//must assign a value to the string to be empty that way does 
 		//not add on to "null"
 		String encoded = "";
@@ -52,7 +52,7 @@ public class CaesarCipher extends Cipher {
 	 * @param shift int shift to move cipher text back
 	 * @return
 	 */
-	public String reduceShift(String encoded, int shift) {
+	private String reduceShift(String encoded, int shift) {
 		String decoded = "";
 		for (int i = 0; i < encoded.length(); i++) {
 			char currentChar = encoded.charAt(i);
