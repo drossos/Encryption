@@ -17,17 +17,22 @@ public class CaesarCipher extends Cipher {
 		super(encOrDec, phrase);
 		this.shift = caesarShift;
 		if (encOrDec == Cipher.DECODE) {
-			super.setDecoded(reduceShift(super.getEncoded(), this.getDecoded(), shift));
+			super.setDecoded(reduceShift(super.getEncoded(), shift));
 		} else {
-			super.setEncoded(applyShift(super.getEncoded(), this.getDecoded(), shift));
+			super.setEncoded(applyShift(this.getDecoded(), shift));
 		}
 
 	}
 
-	public String applyShift(String encoded, String decoded, int shift) {
+	/**
+	 * @param decoded String that is in plain text to be encoded
+	 * @param shift int shift that will be used to encode plaintext
+	 * @return Returns a String that he been encoded
+	 */
+	public String applyShift(String decoded, int shift) {
 		//must assign a value to the string to be empty that way does 
 		//not add on to "null"
-		encoded = "";
+		String encoded = "";
 		for (int i = 0; i < decoded.length(); i++) {
 			char currentChar = decoded.charAt(i);
 			for (int k = 0; k < shift; k++) {
@@ -42,8 +47,13 @@ public class CaesarCipher extends Cipher {
 
 	}
 
-	public String reduceShift(String encoded, String decoded, int shift) {
-		decoded = "";
+	/**
+	 * @param encoded String of encoded cipher text 
+	 * @param shift int shift to move cipher text back
+	 * @return
+	 */
+	public String reduceShift(String encoded, int shift) {
+		String decoded = "";
 		for (int i = 0; i < encoded.length(); i++) {
 			char currentChar = encoded.charAt(i);
 			for (int k = 0; k < shift; k++) {
