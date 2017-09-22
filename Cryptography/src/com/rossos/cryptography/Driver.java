@@ -36,22 +36,25 @@ public abstract class Driver {
 				test = new CaesarCipher(encOrDec, getPhrase(encOrDec), getCaesarShift());
 				System.out.println("Encoded: " + test.getDecoded());
 				System.out.println("Decoded: " + test.getEncoded());
-			} else if (answer.equals("3") || answer.equals("Vernam (UNDER CONSTRUCTION)"))
-				System.out.println("Unavalible for now");
-			else if (answer.equals("4") || answer.equals("ROT 13")) {
+			} else if (answer.equals("3") || answer.equals("Vernam (UNDER CONSTRUCTION)")) {
+				test = new Vernam(encOrDec, getPhrase(encOrDec), getKey());
+				System.out.println("Encoded: " + test.getDecoded());
+				System.out.println("Decoded: " + test.getEncoded());
+			
+			} else if (answer.equals("4") || answer.equals("ROT 13")) {
 				test = new CaesarCipher(encOrDec, getPhrase(encOrDec), 13);
 				System.out.println("Encoded: " + test.getDecoded());
 				System.out.println("Decoded: " + test.getEncoded());
 			}
 			else if (answer.equals("5") || answer.equals("Vigenere"))
-				new Vigenere(encOrDec, getPhrase(encOrDec), getVigKey());
+				new Vigenere(encOrDec, getPhrase(encOrDec), getKey());
 			else
 				System.out.println("That is not a valid option");
 		}
 
 	}
 
-	private static String getVigKey() {
+	private static String getKey() {
 		System.out.println("Enter in the key phrase");
 		return keyboard.nextLine().trim().toUpperCase();
 	}
